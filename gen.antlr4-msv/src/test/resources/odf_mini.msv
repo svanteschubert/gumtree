@@ -1,0 +1,21 @@
+0: CHOICE
+1: REF 'office-document',
+2: ELEMENT "office:document",
+3: SEQUENCE
+4: REF 'office-document-attrs',
+5: ATTRIBUTE "office:mimetype",
+6: REF 'string',
+7: DATA 'string',
+4: REF 'office-document-common-attrs',
+5: INTERLEAVE
+6: ATTRIBUTE "office:version",
+7: VALUE '1.2',
+6: CHOICE
+7: ATTRIBUTE "grddl:transformation",
+8: LIST
+9: CHOICE
+10: ONEOREMORE
+11: REF 'anyIRI',
+12: DATA 'anyURI',
+10: EPSILON
+7: EPSILON

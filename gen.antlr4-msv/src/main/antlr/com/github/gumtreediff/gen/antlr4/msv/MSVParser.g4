@@ -24,14 +24,26 @@ package  com.github.gumtreediff.gen.antlr4.msv;
 }
 
 /** A Multi-Schema Validator (MSV)  memory dump file of some XML grammar consists of one or more lines*/
-msvFile   :   msvLine+ EOF
+msvFile   :   msvLine* msvLine_LAST+ EOF
           ;
 
+msvEntry  : GraphNodeDepth COLON S GraphNodeType (S escapedString COMMA? )*
+          ;
 
 /** Each line of a MSV file memory dump of its internal graph respesentation provides information for a graph node */
-msvLine   :   GraphNodeDepth COLON S GraphNodeType (S EscapedString COMMA? )*  NEWLINE
+msvLine   :     msvEntry NEWLINE
           ;
 
+msvLine_LAST  :   msvEntry?  NEWLINE?
+              ;
 
+escapedString  :   doubleQuotedString | singleQuotedString
+               ;
+
+doubleQuotedString : DOUBLE_QUOTE DoubleQuotedValue DOUBLE_QUOTE
+                   ;
+
+singleQuotedString : SINGLE_QUOTE SingleQuotedValue SINGLE_QUOTE
+                   ;
 
 

@@ -50,9 +50,9 @@ public abstract class TreeComparisonBase {
      * The default encoding when loading a file as String for comparison
      */
     protected static final String DEFAULT_ENCODING = "UTF-8";
-    private static final String TEST_INPUT_PATH
+    protected static final String TEST_INPUT_PATH
             = "build" + File.separatorChar + "resources" + File.separatorChar + "test" + File.separatorChar;
-    private static final String TEST_OUTPUT_PATH
+    protected static final String TEST_OUTPUT_PATH
             = "build" + File.separatorChar + "created-test-files" + File.separatorChar;
     private static final String REFERENCE_INPUT_PATH
             = "build" + File.separatorChar + "resources" + File.separatorChar + "test" + File.separatorChar

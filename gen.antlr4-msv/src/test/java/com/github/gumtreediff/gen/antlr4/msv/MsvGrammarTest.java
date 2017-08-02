@@ -20,6 +20,16 @@ package com.github.gumtreediff.gen.antlr4.msv;
 
 import com.github.gumtreediff.gen.TreeGenerator;
 import com.github.gumtreediff.gen.antlr4.TreeComparisonBase;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.antlr.v4.runtime.CharStream;
+import org.antlr.v4.runtime.CharStreams;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.junit.Test;
 
 /**
  * The given test file pairs are being used as input for the tree generator. All
@@ -36,9 +46,10 @@ public class MsvGrammarTest extends TreeComparisonBase {
      * output folder: '/build/created-test-files' needs to be copied manually to
      * the reference folder: 'src\test\resources\references
      */
-    private static final String[][] testCouplesMSV = new String[][]{
-        {"odf12.msv", "odf12b.msv"}
+    private static final String[][] testCouplesMSV = new String[][]{ // {"odf12.msv", "odf12b.msv"}
     };
+
+    private static final String GENERATE_MSV_FILE = "odf_mini.msv";
 
     public MsvGrammarTest() {
         super(testCouplesMSV);
@@ -47,5 +58,34 @@ public class MsvGrammarTest extends TreeComparisonBase {
     @Override
     protected TreeGenerator getTreeGenerator() {
         return new MsvTreeGenerator();
+    }
+
+    @Test
+    public void MsvFileLoaderTest() {
+        File outputDir = new File(TEST_OUTPUT_PATH);
+        outputDir.mkdir();
+
+        CharStream input = null;
+        try {
+            input = CharStreams.fromFileName(TEST_INPUT_PATH + GENERATE_MSV_FILE);
+        } catch (IOException ex) {
+            Logger.getLogger(MsvGrammarTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        MSVLexer lexer = new MSVLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        MSVParser parser = new MSVParser(tokens);
+        ParseTree tree = parser.msvFile();
+
+        // create a standard ANTLR parse tree walker
+        ParseTreeWalker walker = new ParseTreeWalker();
+        // create listener then feed to walker
+        MSVFileLoader loader = new MSVFileLoader();
+        walker.walk(loader, tree);        // walk parse tree
+    }
+
+    @Test
+    @Override
+    public void allReferencesWithTestResultComparison() {
     }
 }
