@@ -39,6 +39,10 @@ GraphNodeType   : 'ATTRIBUTE'
             | 'VALUE'
             ;
 
+EscapedString  :   ('"' ~[<"]* '"'
+            |   '\''  ~[<']* '\'')
+            ;
+
 COLON       : ':'
             ;
 
@@ -46,22 +50,11 @@ COLON       : ':'
 COMMA       : ','
             ;
 
-DOUBLE_QUOTE : '"'
-             ;
-
-SINGLE_QUOTE : '\''
-             ;
-
 S           :   [ \t];
 
 
 NEWLINE     :   '\r'? '\n' ; // return newlines to parser
 
 
-DoubleQuotedValue : ~[<DOUBLEQUOTE]*
-                  ;
-
-SingleQuotedValue : ~[<SINGLEQUOTE]*
-                  ;
-
 DIGIT       :   [0-9] ;
+

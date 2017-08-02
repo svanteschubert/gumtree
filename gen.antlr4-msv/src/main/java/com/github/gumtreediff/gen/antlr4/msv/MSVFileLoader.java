@@ -15,11 +15,11 @@ limitations under the License.
  */
 package com.github.gumtreediff.gen.antlr4.msv;
 
-import com.github.gumtreediff.gen.antlr4.msv.MSVParser.EscapedStringContext;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import org.antlr.v4.misc.OrderedHashMap;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 public class MSVFileLoader extends MSVParserBaseListener {
 
@@ -30,7 +30,7 @@ public class MSVFileLoader extends MSVParserBaseListener {
 
         int depth  =  Integer.parseInt(ctx.GraphNodeDepth().getText().trim());
         LOG.info("Depth: " + depth);
-        List<EscapedStringContext> values = ctx.escapedString();
+        List<TerminalNode> values = ctx.EscapedString();
         if(values != null){
             LOG.info("Value: ");
             if(values.size() == 1){
