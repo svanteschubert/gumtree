@@ -1,0 +1,26 @@
+package com.github.gumtreediff.gen.antlr4.msv;
+
+import java.util.ArrayList;
+import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversalSource;
+import static org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.__.*;
+import org.apache.tinkerpop.gremlin.structure.T;
+import org.apache.tinkerpop.gremlin.structure.Vertex;
+import org.apache.tinkerpop.gremlin.tinkergraph.structure.TinkerGraph;
+
+public class ODFSchemaGraph {
+
+    private static final java.util.logging.Logger LOG = java.util.logging.Logger.getLogger(ODFSchemaGraph.class.getName());
+
+    // see http://tinkerpop.apache.org/docs/current/reference/#_the_graph_structure
+    public static void main(String[] args) {
+
+        TinkerGraph graph = TinkerGraph.open();
+// START
+        Vertex marko = graph.addVertex(T.label, "person", T.id, 1, "name", "marko", "age", 29);
+
+
+        marko.addEdge("knows", vadas, T.id, 7, "weight", 0.5f);
+
+// END
+    }
+}
