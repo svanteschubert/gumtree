@@ -49,8 +49,8 @@ public class MsvGrammarTest extends TreeComparisonBase {
     private static final String[][] testCouplesMSV = new String[][]{ // {"odf12.msv", "odf12b.msv"}
     };
 
-    private static final String GENERATE_MSV_FILE = "odf12.msv"; // "odf_mini.msv";
-    private static final String JAVA_GREMLIN_FILE = "src"  + File.separatorChar + "main" + File.separatorChar + "java" + File.separatorChar + "com" + File.separatorChar + "github" + File.separatorChar + "gumtreediff" + File.separatorChar + "gen" + File.separatorChar + "antlr4" + File.separatorChar + "msv"  + File.separatorChar + "ODFSchemaGraph.java";
+    private static final String UPCOMING_MSV_FILE = "odf12.msv"; // "odf12.msv"; // "odf_mini.msv";
+    static final String OUTPUT_PATH = "build"  + File.separatorChar;
 
     public MsvGrammarTest() {
         super(testCouplesMSV);
@@ -68,7 +68,7 @@ public class MsvGrammarTest extends TreeComparisonBase {
 
         CharStream input = null;
         try {
-            input = CharStreams.fromFileName(TEST_INPUT_PATH + GENERATE_MSV_FILE);
+            input = CharStreams.fromFileName(TEST_INPUT_PATH + UPCOMING_MSV_FILE);
         } catch (IOException ex) {
             Logger.getLogger(MsvGrammarTest.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,7 +81,7 @@ public class MsvGrammarTest extends TreeComparisonBase {
         // create a standard ANTLR parse tree walker
         ParseTreeWalker walker = new ParseTreeWalker();
         // create listener then feed to walker
-        MSVFileMapper loader = new MSVFileMapper(JAVA_GREMLIN_FILE);
+        MsvFileMapper loader = new MsvFileMapper(OUTPUT_PATH);
         walker.walk(loader, tree);        // walk parse tree
         loader.close();
     }
