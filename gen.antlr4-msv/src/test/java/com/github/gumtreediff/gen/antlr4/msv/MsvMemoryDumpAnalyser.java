@@ -32,13 +32,19 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.junit.Test;
 
 /**
- * The given test file pairs are being used as input for the tree generator. All
- * serializers are being used is used to dump the created graphs. In addition,
- * an edit script showing the difference of the pair is created. Finally, the
- * new output files from '/build/created-test-files' are being compared with
- * references from 'src\test\resources\references'.
+ * This is the first of two classes, that executed in sequence create a GraphML
+ * representation of the OpenDocument Schema.
+
+ * This first class provides the data for the later GraphML creation by the
+ * GraphMLCreation class.
+ * The data is extracted from a memory dump of the MultiSchemaValdiator, which
+ * had prior parsed the ODF 1.2 Relax NG schema.
+ * The RelaxNG is not provided as XML, but as memory dump Multi-Schema Validator
+ * memory dump to reduce the complexity from RelaxNG XML schema.
+ * from the ODF RelaxNG schema is being parsed by an ANTLR 4 parser, extracting
+ * data into two property files for vertices and edges.
  */
-public class MsvGrammarTest extends TreeComparisonBase {
+public class MsvMemoryDumpAnalyser extends TreeComparisonBase {
 
     /**
      * <b>IMPORTANT</b>
@@ -52,7 +58,7 @@ public class MsvGrammarTest extends TreeComparisonBase {
     private static final String UPCOMING_MSV_FILE = "odf12.msv"; // "odf12.msv"; // "odf_mini.msv";
     static final String OUTPUT_PATH = "build"  + File.separatorChar;
 
-    public MsvGrammarTest() {
+    public MsvMemoryDumpAnalyser() {
         super(testCouplesMSV);
     }
 
@@ -70,7 +76,7 @@ public class MsvGrammarTest extends TreeComparisonBase {
         try {
             input = CharStreams.fromFileName(TEST_INPUT_PATH + UPCOMING_MSV_FILE);
         } catch (IOException ex) {
-            Logger.getLogger(MsvGrammarTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MsvMemoryDumpAnalyser.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         MSVLexer lexer = new MSVLexer(input);
